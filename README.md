@@ -1,13 +1,25 @@
 # COOK-SMART
 
-We are a page of cooking recipes, described by teachers so that our students and users can learn their recipes. We indicate ingredients with their quantities, allergens and method of preparation. All separated by categories. At the same time, the ingredients of the recipes selected by the teachers for their elaboration are all collected in a total list of ingredients that the administrator receives. the administrator receives these individual lists plus the total list of all these lists and can edit this last list. This one is designed for the purchase of ingredients, so you can edit it if there are ingredients that you may have in stock. The admin is the one who edits the users.
+"CookSmart" is a full-stack application designed for recipe management in a cooking academy. The initial need is to have a platform where teachers can save, consult, and select recipes that, once added to a favorites list, generate a list with all the necessary ingredients and quantities to prepare them. This list is then automatically sent to the person in charge of the storeroom for purchase processing. Other user profiles, such as "student", are also considered, allowing them to consult the recipes. The recipes are grouped into categories and can be consulted using various filters.
 
 ## Technology stack used in Back-end:
 * **Microsoft Visual Studio** - [Sitio web oficial](https://visualstudio.microsoft.com/es/)
 * **C#** - [Sitio web oficial](https://learn.microsoft.com/es-es/dotnet/csharp/)
 * **ASP.NET Core 6** - [Sitio web oficial](https://dotnet.microsoft.com/es-es/download/dotnet/6.0)
 * **Entity Framework 7** - [Sitio web oficial](https://learn.microsoft.com/es-es/ef/core/what-is-new/ef-core-7.0/plan)
-* **SQL Server Management Studio 18** - [Sitio web oficial](https://learn.microsoft.com/es-es/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16&viewFallbackFrom=sql-server-ver18)
+* **SQL Server Management Studio 18** - [Sitio web oficial](https://learn.microsoft.com/es-es/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16&viewFallbackFrom=sql-server-ver18)  
+
+## Technology stack used in Front-end:
+* **Visual Studio Code** 
+* **HTML, CSS, Javascript** 
+* **React Vite** 
+* **Axios** 
+* **Bootstrap**  
+
+## Both Front and Back-end:
+* **Git** 
+* **GitHub** 
+
 
 
 ## Installation:
@@ -17,11 +29,18 @@ Create a directory on your computer to store the project:
 
 
 ## How to use it? 
-In the project directory run:
+In terminal, in front-end directory run:
 * To install the dependencies ***$ npm install***
 * To install react router ***$ npm install react-router-dom@6***
 * To install axios ***$ npm install axios***
 * To activate the server and keep this terminal open ***$ npm run dev***
+
+In back-end, get de server from connection step in SSMS. Add a new connection to server in server explorer, paste de server name, type the new database name and confirm to create the database. Right click on the new connection and get the data connection string from "Properties". Copy it and paste the connection string in appsettings.json file, exactly overwritting from terms "Data"... to ..."Security=true".  
+In terminal, run the command "update-database" so the migrations from project Data will be applied in order to built the database in SQL Server. Then you can use the SQL commands here provided to ingress by this order:
+* First rol type "Administrador"
+* First "UserAdmin"
+
+We also provide some other commands so you can also register a few more files in some tables directly from SQL.
 
 
 ## Methodologies:
@@ -42,29 +61,29 @@ In the project directory run:
 ([Name], [Description],IsActive)
 
 values
-('Administrador','Acceso a todos los métodos', 1)
+('Administrador','Access to all methods, management of users', 1)
 
-('Operator','Postea y lista recetas', 1) 
+('Operator','Posts, selects and lists recipes', 1)   
 
-('Operator','Postea y lista recetas', 1) 
+('Visitor','Consults recipes', 1) 
+
 
 
 * select * from RolType
-
-* insert into Rol_Authorization
-
-(IdRol, IdAuthorization, IsActive)
 
 
 * insert into Users
 
 (IdRol, [UserName], InsertDate, IsActive, EncryptedPassword, EncryptedToken, TokenExpireDate)
 
-values
+values  
 
-(2, 'Maria', GETDATE(), 1, '$2a$11$F62mpHhfDZQJ65p50Lzz0OgzMnu3fZXcZWTbDjdMl.UrYcJqqG6k6', '', GETDATE())
+(1, 'UserAdmin', GETDATE(), 1, '$2a$11$ESGTCdOxoR8oBsDj1OB9m.EmSJ3KTXf.Z873KzubFOtC16dno/0Cq', '', GETDATE())
+--password asdasd2, this user, due to his IdRol, will be the only with this rol asingned and the only one able to insert other users--
 
-(1, 'Juan', GETDATE(), 1, '$2a$11$ESGTCdOxoR8oBsDj1OB9m.EmSJ3KTXf.Z873KzubFOtC16dno/0Cq', '', GETDATE())
+(2, 'UserOperator', GETDATE(), 1, '$2a$11$F62mpHhfDZQJ65p50Lzz0OgzMnu3fZXcZWTbDjdMl.UrYcJqqG6k6', '', GETDATE())
+
+(3, 'UserVisitor', GETDATE(), 1, '$2a$11$F62mpHhfDZQJ65p50Lzz0OgzMnu3fZXcZWTbDjdMl.UrYcJqqG6k6', '', GETDATE())
 
 
 * select * from Users
@@ -103,8 +122,6 @@ values
 * select * from Categories
 
 
-
-* DROP TABLE RolType  (borrar tabla)
 
 
 
