@@ -4,6 +4,7 @@ using Data;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Resources.RequestModels;
+using System.Data;
 using System.Web.Http.Cors;
 
 namespace API.Controllers
@@ -23,7 +24,10 @@ namespace API.Controllers
 
         }
 
-        [EndpointAuthorize(AllowsAnonymous = true)]
+        [EndpointAuthorize(AllowedUserRols = "Administrador")]
+        //NoNullAllowedUserRols is a string List, but not sure about the sintax
+        //[EndpointAuthorize(AllowedUserRols = "Administrador, Operator")]
+        //[EndpointAuthorize(AllowsAnonymous = true)]
         [HttpPost(Name = "InsertRecipe")]
         public async Task Post([FromBody] RecipeRequest recipeRequest)
         {
