@@ -14,7 +14,7 @@ namespace API.Middlewares
 
         public void ValidateRequestAutorizathion(HttpContext context)
         {
-            if(context.Request.Method == "OPTIONS")
+            if (context.Request.Method == "OPTIONS")
             {
                 return;
             }

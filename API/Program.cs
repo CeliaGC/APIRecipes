@@ -43,6 +43,17 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
 
 builder.Services.AddScoped<IRecipeItemLogic, RecipeItemLogic>();
 builder.Services.AddScoped<IRecipeItemService, RecipeItemService>();
@@ -70,16 +81,17 @@ builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddDbContext<ServiceContext>(
         options => options.UseSqlServer("name=ConnectionStrings:ServiceContext"));
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll",
+//        builder =>
+//        {
+//            builder.AllowAnyOrigin()
+//                   .AllowAnyMethod()
+//                   .AllowAnyHeader();
+//        });
+//});
+
 
 var app = builder.Build();
 
@@ -87,7 +99,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
 }
 
 app.Use(async (context, next) => {
@@ -99,13 +110,7 @@ app.Use(async (context, next) => {
 });
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.UseCors("AllowAll");
-
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();

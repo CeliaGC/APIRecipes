@@ -5,11 +5,13 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Resources.RequestModels;
 using System.Data;
-using System.Web.Http.Cors;
+using System.Net;
+//using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Cors;
 
 namespace API.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("AllowAll")]
     [Route("[controller]/[action]")]
     public class RecipeController : ControllerBase
     {
