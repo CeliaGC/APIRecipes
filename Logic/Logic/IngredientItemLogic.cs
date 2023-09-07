@@ -26,16 +26,24 @@ namespace Logic.Logic
 
         public int InsertIngredient(IngredientItem ingredientItem)
         {
-            
+
             //var newIngredient = new IngredientItem
             //{
             //    Id = ingredientRequest.Id,
             //    Name = ingredientRequest.Name,
             //};
 
-            _serviceContext.Ingredients.Add(ingredientItem);
-            _serviceContext.SaveChanges();
-            return ingredientItem.Id;
+            if (!_serviceContext.Ingredients.Any(i => i.Ingredient.Equals(ingredientItem.Ingredient, StringComparison.OrdinalIgnoreCase)))
+            {
+                _serviceContext.Ingredients.Add(ingredientItem);
+                _serviceContext.SaveChanges();
+                return ingredientItem.Id;
+            }
+            return -1;
+         
+
+         
+            
         }
 
 

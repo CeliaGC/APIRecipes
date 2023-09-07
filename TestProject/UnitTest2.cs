@@ -34,7 +34,7 @@ public class OrderItemLogicIntegrationTests
     [TestMethod]
     public async Task InsertOrders_ShouldInsertOrdersIntoDatabase()
     {
-        // Arrange
+        // Arrange - los objetos, datos con los que vamos a hacer pruebas
         using (var context = new ServiceContext(_options))
         {
             var orderItemLogic = new OrderItemLogic(context);
@@ -49,10 +49,10 @@ public class OrderItemLogicIntegrationTests
                 };
 
 
-                // Act
+                // Act - las acciones que realizamos con los objetos y datos
                 await orderItemLogic.InsertOrders(ordersRequest);
 
-            // Assert
+            // Assert - las afirmaciones que comprobamos
             var ordersInDatabase = context.Orders.ToList();
             Assert.AreEqual(2, ordersInDatabase.Count);
         }
