@@ -94,6 +94,9 @@ builder.Services.AddDbContext<ServiceContext>(
 
 
 var app = builder.Build();
+app.UseCors("AllowAll");
+app.UseAuthorization();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -110,8 +113,8 @@ app.Use(async (context, next) => {
 });
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
-app.UseAuthorization();
+
+
 
 app.MapControllers();
 
