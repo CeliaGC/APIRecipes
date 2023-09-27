@@ -27,27 +27,31 @@ namespace API.Controllers
             _userService = userService;
             _serviceContext = serviceContext;
         }
-        [EndpointAuthorize(AllowsAnonymous = true)]
-        [HttpPost(Name = "LoginUser")]
-        public IActionResult Login([FromBody] LoginRequest loginRequest)
-        {
-            try
-            {
-                var usersData = _userService.GetAllUsers();
-                UserItem user = usersData.Where(user => user.UserName == loginRequest.UserName).First();
-                int userIdRol = user.IdRol;
-                UserRolItem rol = _serviceContext.Set<UserRolItem>().Where(ur => ur.Id == userIdRol).FirstOrDefault();
-                string roleName = rol?.Name;
-                string userName = user.UserName;
-                int userId = user.Id;
-                string token = _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
-                return Ok(new Tuple<string, int, string, string, int>(token, userIdRol, roleName, userName, userId));
-            }
-            catch(UnauthorizedAccessException e)
-            {
-                return Unauthorized(e.Message);
-            }
-        }
+
+        //Login sin JWToken
+        //[EndpointAuthorize(AllowsAnonymous = true)]
+        //[HttpPost(Name = "LoginUser")]
+        //public IActionResult Login([FromBody] LoginRequest loginRequest)
+        //{
+        //    try
+        //    {
+        //        var usersData = _userService.GetAllUsers();
+        //        UserItem user = usersData.Where(user => user.UserName == loginRequest.UserName).First();
+        //        int userIdRol = user.IdRol;
+        //        UserRolItem rol = _serviceContext.Set<UserRolItem>().Where(ur => ur.Id == userIdRol).FirstOrDefault();
+        //        string roleName = rol?.Name;
+        //        string userName = user.UserName;
+        //        int userId = user.Id;
+        //        string token = _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
+        //        return Ok(new Tuple<string, int, string, string, int>(token, userIdRol, roleName, userName, userId));
+        //    }
+        //    catch(UnauthorizedAccessException e)
+        //    {
+        //        return Unauthorized(e.Message);
+        //    }
+        //}
+
+
         [EndpointAuthorize(AllowedUserRols = "Administrador")]
         [HttpPost(Name = "InsertUser")]
         public int InsertUser([FromBody] NewUserRequest newUserRequest)
