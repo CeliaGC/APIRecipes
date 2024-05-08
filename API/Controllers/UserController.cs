@@ -54,7 +54,7 @@ namespace API.Controllers
         {
             return _userService.InsertUser(newUserRequest);
         }
-        //[EndpointAuthorize(AllowedUserRols = "Administrador")]
+
           [EndpointAuthorize(AllowsAnonymous = true)]
         [HttpGet(Name = "GetAllUsers")]
         public List<UserItem> GetAll()
