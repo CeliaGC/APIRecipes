@@ -15,14 +15,10 @@ namespace TestProject3
     [TestClass]
     public class OrderItemLogicTest
     {
-        //Una vez instalado el paquete InMemory, inyecto las dependencias con las que voy a trabajar: 
-        // DbContextOptions y ServiceContext + las clases donde están los métodos que voy a testear.
         private DbContextOptions<ServiceContext> _options;
         private ServiceContext _serviceContext;
         private OrderItemLogic _orderItemLogic;
 
-
-        // Aquí determino que se usa InMemoryDataBase para comprobar los métodos sin afectar a la base de datos real
         [TestInitialize]
         public void Setup()
         {
@@ -33,14 +29,9 @@ namespace TestProject3
             _orderItemLogic = new OrderItemLogic(_serviceContext);
         }
 
-        // Los test
         [TestMethod]
         public async Task InsertOrders_ShouldInsertOrdersIntoDatabase()
         {
-            // Arrange. Las variables, los elementos del entorno que estoy testeando
-
-       
-
                 var ordersRequest = new OrdersRequest
                 {
                     OrderItems = new List<OrderItem>
@@ -50,11 +41,8 @@ namespace TestProject3
     }
                 };
 
-
-                // Act. La acción, en este caso un método insert para hacer un post, que voy a comprobar
                 await _orderItemLogic.InsertOrders(ordersRequest);
 
-                // Assert. La afirmación que espero que se cumpla como resultado de realizar la acción
                 var ordersInDatabase = _serviceContext.Orders.ToList();
                 Assert.AreEqual(2, ordersInDatabase.Count);
             
