@@ -22,7 +22,6 @@ namespace Entities.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Instructions { get; set; }
-        //public int CategoryID { get; set; }
         public string Category { get; set; }
         public int CategoryId { get; set; }
         public string? Author { get; set; }
@@ -30,12 +29,10 @@ namespace Entities.Entities
         public string? Materials { get; set; }
         public int PostedBy { get; set; }
         public string PosterName { get; set; }
-        //public List<AlergenItem> Alergens
         public bool IsActive { get; set; }
         public bool IsPublic { get; set; }
         public DateTime InsertDate { get; set; }
         public virtual ICollection<Recipe_Ingredient> Ingredients { get; set; }
-        //[JsonIgnore]
         [ForeignKey("Recipe_AlergenId")]
         public virtual ICollection<Recipe_Alergen> Alergens { get; set; }
         [JsonIgnore]
