@@ -46,11 +46,7 @@ namespace Data
                 entity.HasMany(i => i.Order)
                     .WithOne(o => o.Ingredient)
                     .HasForeignKey(o => o.IdIngredient);
-                //builder.Entity<IngredientItem>().HasMany(i => i.Order).WithOne(o => o.Ingredient).HasForeignKey(o => o.IdIngredient);
 
-
-
-                //builder.Entity<IngredientItem>().HasIndex(i => i.Ingredient).IsUnique();
             });
 
             builder.Entity<CategoryItem>(entity => {
@@ -82,32 +78,17 @@ namespace Data
     .WithMany(u => u.Order)
     .HasForeignKey(o => o.IdUser);
 
-                //entity.HasOne(o => o.Ingredient).WithOne(i => i.Order).HasForeignKey<OrderItem>(o => o.IdIngredient);
-
-
             });
-
-            //builder.Entity<AuthorizationItem>(entity => {
-            //    entity.ToTable("Authotizations");
-            //    builder.Entity<AuthorizationItem>().HasKey(p => p.Id);
-            //});
 
             builder.Entity<Recipe_Alergen>(entity => {
                 entity.ToTable("Recipe_Alergens");
                 builder.Entity<Recipe_Alergen>().HasKey(p => p.Id);
-                //builder.Entity<Recipe_Alergen>().HasNoKey();
-                // estas las quito para probar el virtual de Gepeto
-                //entity.HasOne<RecipeItem>().WithMany().HasForeignKey(r => r.RecipeId);
-                //entity.HasOne<AlergenItem>().WithMany().HasForeignKey(r => r.AlergenId);
                 builder.Entity<Recipe_Alergen>().HasOne(ra => ra.Recipes)
                               .WithMany(r => r.Alergens)
                               .HasForeignKey(ra => ra.RecipeId);
                 builder.Entity<Recipe_Alergen>().HasOne(ra => ra.Alergens)
                              .WithMany(a => a.Alergens)
                              .HasForeignKey(ra => ra.AlergenId);
-
-
-
 
             });
 
@@ -123,39 +104,9 @@ namespace Data
                 .HasOne(ri => ri.Ingredients)
                 .WithMany(i => i.Ingredients)
                 .HasForeignKey(ri => ri.IngredientId);
-                //entity.HasOne<RecipeItem>().WithMany().HasForeignKey(r => r.RecipeId);
-                //entity.HasOne<IngredientItem>().WithMany().HasForeignKey(r => r.IngredientId);
-
-
-
-
-
-                //  {
-                //    modelBuilder.Entity<EntityAB>()
-                //        .HasKey(e => e.Id);
-
-                //    modelBuilder.Entity<EntityAB>()
-                //        .HasOne(eab => eab.EntityA)
-                //        .WithMany(ea => ea.EntityABs)
-                //        .HasForeignKey(eab => eab.EntityAId);
-
-                //    modelBuilder.Entity<EntityAB>()
-                //        .HasOne(eab => eab.EntityB)
-                //        .WithMany(eb => eb.EntityABs)
-                //        .HasForeignKey(eab => eab.EntityBId);
-                //}
-
-
-
 
             });
 
-            //builder.Entity<Rol_Authorization>(entity => {
-            //    entity.ToTable("Rol_Authorization");
-            //    builder.Entity<Rol_Authorization>().HasKey(p => p.Id);
-            //    entity.HasOne<UserRolItem>().WithMany().HasForeignKey(r => r.IdRol);
-            //    entity.HasOne<AuthorizationItem>().WithMany().HasForeignKey(r => r.IdAuthorization);
-            //});
             foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
