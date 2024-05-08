@@ -27,9 +27,6 @@ namespace Entities.Entities
         public virtual ICollection<OrderItem> Order { get; set; }
         [JsonIgnore]
         public virtual ICollection<RecipeItem> Recipes { get; set; }
-        //[JsonIgnore]
-        //[NotMapped]
-        //public virtual UserRolItem UserRols { get; set; }
 
     }
 }
